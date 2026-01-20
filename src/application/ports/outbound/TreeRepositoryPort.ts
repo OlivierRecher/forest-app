@@ -4,4 +4,6 @@ export interface TreeRepositoryPort {
   findAll(): Tree[];
 
   insert(tree: Tree): Tree;
+
+  delete(uuid: string): boolean;
 }

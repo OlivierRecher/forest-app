@@ -40,4 +40,8 @@ export class TreeService implements TreeServicePort {
     return this.repo.insert(tree);
   }
 
+  delete(uuid: string): boolean {
+    return this.repo.delete(uuid);
+  }
+
 }

@@ -19,4 +19,10 @@ export class TreeRepositoryAdapter {
     this.trees.push(persistedTree);
     return persistedTree;
   }
+
+  delete(uuid: string): boolean {
+    const initialLength = this.trees.length;
+    this.trees = this.trees.filter(t => t.id !== uuid);
+    return this.trees.length < initialLength;
+  }
 }

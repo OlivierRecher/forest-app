@@ -6,4 +6,6 @@ export interface TreeServicePort {
   list(): Tree[];
 
   save(tree: Tree): Tree;
+
+  delete(uuid: string): boolean;
 }

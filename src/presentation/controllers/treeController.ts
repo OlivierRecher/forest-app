@@ -10,6 +10,7 @@ export class TreeController {
     app.get('/tree', this.listAllTrees.bind(this));
     app.get('/tree/:uuid', this.getTreeById.bind(this));
     app.post('/tree', this.createTree.bind(this));
+    app.delete('/tree/:uuid', this.deleteTree.bind(this));
   }
 
   listAllTrees(req: Request, res: Response) {
@@ -40,6 +41,16 @@ export class TreeController {
       res.status(201).send(newTree);
     } catch (e) {
       res.status(400).send({ message: (e as Error).message });
+    }
+  }
+
+  deleteTree(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+    const deleted = this.treeService.delete(uuid);
+    if (deleted) {
+      res.status(204).send();
+    } else {
+      res.status(404).send({ message: "Tree not found" });
     }
   }
 }

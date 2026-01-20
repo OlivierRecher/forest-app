@@ -12,16 +12,6 @@ export class ForestController {
         app.delete('/forest/:uuid', this.deleteForest.bind(this));
     }
 
-    deleteForest(req: Request, res: Response) {
-        const uuid: string = req.params.uuid;
-        const deleted = this.forestService.delete(uuid);
-        if (deleted) {
-            res.status(204).send();
-        } else {
-            res.status(404).send({ message: "Forest not found" });
-        }
-    }
-
     listAllForests(req: Request, res: Response) {
         const forests = this.forestService.list();
         res.status(200).send(forests);
@@ -48,6 +38,16 @@ export class ForestController {
             res.status(201).send(newForest);
         } catch (e) {
             res.status(400).send({ message: (e as Error).message });
+        }
+    }
+
+    deleteForest(req: Request, res: Response) {
+        const uuid: string = req.params.uuid;
+        const deleted = this.forestService.delete(uuid);
+        if (deleted) {
+            res.status(204).send();
+        } else {
+            res.status(404).send({ message: "Forest not found" });
         }
     }
 }
