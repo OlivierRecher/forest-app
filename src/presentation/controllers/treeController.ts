@@ -4,7 +4,7 @@ import { Species } from "../../domain/models/Species";
 import { Exposure } from "../../domain/models/Exposure";
 
 export class TreeController {
-  constructor(private treeService: TreeServicePort) { }
+  constructor(private readonly treeService: TreeServicePort) { }
 
   registerRoutes(app: Express) {
     app.get('/tree', this.listAllTrees.bind(this));
