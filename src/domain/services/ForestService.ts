@@ -72,4 +72,16 @@ export class ForestService implements ForestServicePort {
     const forest = this.get(forestId);
     return this.co2Service.getAbsorption(forest);
   }
+
+  calculateSurfaceNeeded(forestId: string, targetCO2: number): number {
+    const forest = this.get(forestId);
+    const currentAbsorption = this.co2Service.getAbsorption(forest);
+
+    if (currentAbsorption === 0) {
+      throw new Error('This forest has no CO2 absorption capacity, cannot calculate needed surface.');
+    }
+
+    const absorptionPerUnitSurface = currentAbsorption / forest.surface;
+    return targetCO2 / absorptionPerUnitSurface;
+  }
 }

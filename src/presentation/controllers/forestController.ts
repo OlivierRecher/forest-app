@@ -18,6 +18,7 @@ export class ForestController {
     app.post('/forest/:uuid/tree/:treeId', this.addTreeToForest.bind(this));
     app.get('/forest/:uuid/species', this.getForestSpecies.bind(this));
     app.get('/forest/:uuid/co2', this.getForestCO2.bind(this));
+    app.get('/forest/:uuid/surface-needed', this.getSurfaceNeeded.bind(this));
   }
 
   listAllForests(req: Request, res: Response) {
@@ -120,6 +121,27 @@ export class ForestController {
     try {
       const co2 = this.forestService.calculateCO2(uuid);
       res.status(200).send({ co2 });
+    } catch (e) {
+      if (e instanceof Error && e.message === 'Forest not found') {
+        res.status(404).send({ message: e.message });
+      } else {
+        res.status(400).send({ message: (e as Error).message });
+      }
+    }
+  }
+
+  getSurfaceNeeded(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+    const targetCO2 = Number(req.query.targetCO2);
+
+    if (Number.isNaN(targetCO2) || targetCO2 <= 0) {
+      res.status(400).send({ message: 'Invalid targetCO2 parameter' });
+      return;
+    }
+
+    try {
+      const surface = this.forestService.calculateSurfaceNeeded(uuid, targetCO2);
+      res.status(200).send({ surface });
     } catch (e) {
       if (e instanceof Error && e.message === 'Forest not found') {
         res.status(404).send({ message: e.message });

@@ -18,4 +18,6 @@ export interface ForestServicePort {
   getSpecies(forestId: string): Species[];
 
   calculateCO2(forestId: string): number;
+
+  calculateSurfaceNeeded(forestId: string, targetCO2: number): number;
 }
