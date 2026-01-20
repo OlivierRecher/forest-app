@@ -4,14 +4,16 @@ meta {
   seq: 13
 }
 
-get {
-  url: {{baseUrl}}/forest/{{forestId}}/surface-needed?targetCO2=563000000000
-  body: none
+post {
+  url: {{baseUrl}}/forest/{{forestId}}/surface-needed
+  body: json
   auth: none
 }
 
-params:query {
-  targetCO2: 563000000000
+body:json {
+  {
+    "targetCO2": 563000000000
+  }
 }
 
 vars:pre-request {

@@ -170,20 +170,25 @@ paths:
         '404':
           description: Forest not found
 
-  /forest/{id}/co2:
-    get:
-      summary: Get total CO2 absorption of a forest
-      operationId: getForestCO2
+  /absorption:
+    post:
+      summary: Calculate forest CO2 absorption
+      operationId: calculateAbsorption
       tags:
         - forest
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The forest id
-          schema:
-            type: string
-            format: uuid
+      requestBody:
+        description: Forest ID
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - forestId
+              properties:
+                forestId:
+                  type: string
+                  format: uuid
       responses:
         '200':
           description: Total CO2 absorption
@@ -199,9 +204,9 @@ paths:
           description: Forest not found
 
   /forest/{id}/surface-needed:
-    get:
+    post:
       summary: Calculate surface needed for target CO2
-      operationId: getSurfaceNeeded
+      operationId: calculateSurfaceNeeded
       tags:
         - forest
       parameters:
@@ -212,13 +217,19 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: targetCO2
-          in: query
-          required: true
-          description: The target CO2 absorption
-          schema:
-            type: number
-            format: double
+      requestBody:
+        description: Calculation parameters
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - targetCO2
+              properties:
+                targetCO2:
+                  type: number
+                  format: double
       responses:
         '200':
           description: Surface needed calculated

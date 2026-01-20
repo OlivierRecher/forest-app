@@ -17,8 +17,8 @@ export class ForestController {
     app.delete('/forest/:uuid', this.deleteForest.bind(this));
     app.post('/forest/:uuid/tree/:treeId', this.addTreeToForest.bind(this));
     app.get('/forest/:uuid/species', this.getForestSpecies.bind(this));
-    app.get('/forest/:uuid/co2', this.getForestCO2.bind(this));
-    app.get('/forest/:uuid/surface-needed', this.getSurfaceNeeded.bind(this));
+    app.post('/absorption', this.getForestCO2.bind(this));
+    app.post('/forest/:uuid/surface-needed', this.getSurfaceNeeded.bind(this));
   }
 
   listAllForests(req: Request, res: Response) {
@@ -117,9 +117,15 @@ export class ForestController {
   }
 
   getForestCO2(req: Request, res: Response) {
-    const uuid: string = req.params.uuid;
+    const { forestId } = req.body;
+
+    if (!forestId) {
+      res.status(400).send({ message: 'Missing forestId in body' });
+      return;
+    }
+
     try {
-      const co2 = this.forestService.calculateCO2(uuid);
+      const co2 = this.forestService.calculateCO2(forestId);
       res.status(200).send({ co2 });
     } catch (e) {
       if (e instanceof Error && e.message === 'Forest not found') {
@@ -132,7 +138,7 @@ export class ForestController {
 
   getSurfaceNeeded(req: Request, res: Response) {
     const uuid: string = req.params.uuid;
-    const targetCO2 = Number(req.query.targetCO2);
+    const { targetCO2 } = req.body;
 
     if (Number.isNaN(targetCO2) || targetCO2 <= 0) {
       res.status(400).send({ message: 'Invalid targetCO2 parameter' });
