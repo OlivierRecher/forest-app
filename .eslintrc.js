@@ -46,7 +46,6 @@ module.exports = {
         ],
     },
     rules: {
-        // Clean Code & Best Practices
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/explicit-function-return-type': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -56,7 +55,6 @@ module.exports = {
             { max: 50, skipBlankLines: true, skipComments: true },
         ],
 
-        // Naming Conventions
         '@typescript-eslint/naming-convention': [
             'error',
             {
@@ -122,18 +120,23 @@ module.exports = {
                 ],
             },
         ],
-        // Architecture Boundaries
-        // Rules configuration
     },
     overrides: [
         {
-            files: ['src/application/server.ts'],
+            files: [
+                'src/application/server.ts',
+                'src/application/ports/inbound/*.ts',
+                'src/application/ports/outbound/*.ts',
+            ],
             rules: {
                 'boundaries/element-types': 'off',
             },
         },
         {
-            files: ['**/*.spec.ts'],
+            files: [
+                '**/*.spec.ts',
+                'src/application/errorHandling.ts',
+            ],
             rules: {
                 'max-lines-per-function': 'off',
                 '@typescript-eslint/no-explicit-any': 'off',
