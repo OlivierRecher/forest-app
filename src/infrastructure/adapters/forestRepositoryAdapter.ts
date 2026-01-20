@@ -1,7 +1,7 @@
 import { NotFoundError } from '../../domain/errors/NotFoundError';
 import { Forest } from '../../domain/models/Forest';
 import { v4 as uuidv4 } from 'uuid';
-import { ForestRepositoryPort } from '../../application/ports/outbound/ForestRepositoryPort';
+import { ForestRepositoryPort } from '../../domain/ports/outbound/ForestRepositoryPort';
 
 export class ForestRepositoryAdapter implements ForestRepositoryPort {
   forests: Forest[] = [];

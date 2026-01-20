@@ -1,4 +1,4 @@
-import { TreeServicePort } from '../../application/ports/inbound/TreeServicePort';
+import { TreeServicePort } from '../../domain/ports/inbound/TreeServicePort';
 import { Express, Response, Request } from 'express';
 import { Species } from '../../domain/models/Species';
 import { Exposure } from '../../domain/models/Exposure';

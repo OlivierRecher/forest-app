@@ -1,4 +1,4 @@
-import { Forest } from '../../../domain/models/Forest';
+import { Forest } from '../../models/Forest';
 
 export interface ForestRepositoryPort {
   findAll(): Forest[];

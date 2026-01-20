@@ -1,6 +1,6 @@
-import { TreeServicePort } from '../../application/ports/inbound/TreeServicePort';
+import { TreeServicePort } from '../ports/inbound/TreeServicePort';
 import { Tree } from '../models/Tree';
-import { TreeRepositoryPort } from '../../application/ports/outbound/TreeRepositoryPort';
+import { TreeRepositoryPort } from '../ports/outbound/TreeRepositoryPort';
 import { NotFoundError } from '../errors/NotFoundError';
 import { Species } from '../../domain/models/Species';
 import { Exposure } from '../../domain/models/Exposure';

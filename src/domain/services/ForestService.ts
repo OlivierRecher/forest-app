@@ -1,12 +1,12 @@
-import { ForestServicePort } from '../../application/ports/inbound/ForestServicePort';
+import { ForestServicePort } from '../ports/inbound/ForestServicePort';
 import { Forest } from '../models/Forest';
-import { ForestRepositoryPort } from '../../application/ports/outbound/ForestRepositoryPort';
+import { ForestRepositoryPort } from '../ports/outbound/ForestRepositoryPort';
 import { ForestType } from '../models/ForestType';
 import { NotFoundError } from '../errors/NotFoundError';
 import { Tree } from '../models/Tree';
 import { Species } from '../models/Species';
 
-import { CO2AbsorptionServicePort } from '../../application/ports/inbound/CO2AbsorptionServicePort';
+import { CO2AbsorptionServicePort } from '../ports/inbound/CO2AbsorptionServicePort';
 
 export class ForestService implements ForestServicePort {
   constructor(

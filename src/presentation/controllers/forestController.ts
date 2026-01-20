@@ -1,5 +1,5 @@
-import { ForestServicePort } from '../../application/ports/inbound/ForestServicePort';
-import { TreeServicePort } from '../../application/ports/inbound/TreeServicePort';
+import { ForestServicePort } from '../../domain/ports/inbound/ForestServicePort';
+import { TreeServicePort } from '../../domain/ports/inbound/TreeServicePort';
 import { Express, Response, Request } from 'express';
 import { ForestType } from '../../domain/models/ForestType';
 
@@ -7,7 +7,7 @@ export class ForestController {
   constructor(
     private readonly forestService: ForestServicePort,
     private readonly treeService: TreeServicePort,
-  ) { }
+  ) {}
 
   registerRoutes(app: Express): void {
     app.get('/forest', this.listAllForests.bind(this));
