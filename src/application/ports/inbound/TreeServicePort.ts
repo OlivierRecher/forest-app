@@ -8,4 +8,6 @@ export interface TreeServicePort {
   save(tree: Tree): Tree;
 
   delete(uuid: string): boolean;
+
+  update(id: string, tree: Tree): Tree;
 }

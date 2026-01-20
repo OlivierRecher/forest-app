@@ -44,4 +44,23 @@ export class TreeService implements TreeServicePort {
     return this.repo.delete(uuid);
   }
 
+  update(id: string, tree: Tree): Tree {
+    if (!tree.birth) {
+      throw new Error("Tree birth date cannot be null");
+    }
+
+    if (!tree.carbonStorageCapacity) {
+      throw new Error("Missing carbon storage capacity");
+    }
+
+    if (!Object.values(Species).includes(tree.species)) {
+      throw new Error("Invalid species");
+    }
+
+    if (!Object.values(Exposure).includes(tree.exposure)) {
+      throw new Error("Invalid exposure");
+    }
+
+    return this.repo.update(id, tree);
+  }
 }

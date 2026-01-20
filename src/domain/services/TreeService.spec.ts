@@ -13,7 +13,8 @@ describe('TreeService', () => {
     const repoMock = {
       findAll: jest.fn().mockReturnValue(trees),
       insert: jest.fn(),
-      delete: jest.fn().mockReturnValue(true)
+      delete: jest.fn().mockReturnValue(true),
+      update: jest.fn()
     };
     const treeService = new TreeService(repoMock);
 

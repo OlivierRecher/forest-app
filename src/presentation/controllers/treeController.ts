@@ -10,6 +10,7 @@ export class TreeController {
     app.get('/tree', this.listAllTrees.bind(this));
     app.get('/tree/:uuid', this.getTreeById.bind(this));
     app.post('/tree', this.createTree.bind(this));
+    app.put('/tree/:uuid', this.updateTree.bind(this));
     app.delete('/tree/:uuid', this.deleteTree.bind(this));
   }
 
@@ -51,6 +52,27 @@ export class TreeController {
       res.status(204).send();
     } else {
       res.status(404).send({ message: "Tree not found" });
+    }
+  }
+
+  updateTree(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+    const { birth, species, exposure, carbonStorageCapacity } = req.body;
+
+    try {
+      const updated = this.treeService.update(uuid, {
+        birth: new Date(birth),
+        species: species as Species,
+        exposure: exposure as Exposure,
+        carbonStorageCapacity
+      });
+      res.status(200).send(updated);
+    } catch (e) {
+      if (e instanceof Error && e.message === 'Tree not found') {
+        res.status(404).send({ message: e.message });
+      } else {
+        res.status(400).send({ message: (e as Error).message });
+      }
     }
   }
 }

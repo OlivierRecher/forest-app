@@ -6,4 +6,6 @@ export interface TreeRepositoryPort {
   insert(tree: Tree): Tree;
 
   delete(uuid: string): boolean;
+
+  update(id: string, tree: Tree): Tree;
 }
