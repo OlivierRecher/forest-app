@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+
+# JetBrains IDE usage
+.idea/workspace.xml
+.idea/shelf/
+.idea/dictionaries/
+.idea/csv-plugin.xml
+.idea/copilot*
