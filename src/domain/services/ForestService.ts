@@ -30,4 +30,8 @@ export class ForestService implements ForestServicePort {
 
         return this.repo.insert(forest);
     }
+
+    delete(uuid: string): boolean {
+        return this.repo.delete(uuid);
+    }
 }

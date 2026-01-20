@@ -1,15 +1,25 @@
 meta {
   name: Delete tree
   type: http
-  seq: 11
+  seq: 10
 }
 
 delete {
-  url: http://localhost:3000/tree/:id
+  url: http://localhost:3000/tree/{{treeId}}
   body: none
   auth: none
 }
 
-params:path {
-  id: 123e4567-e89b-12d3-a456-426614174000
+tests {
+  test("Should return 204 No Content", function () {
+    expect(res.getStatus()).to.equal(204);
+  });
+  
+  test("Should respond within reasonable time", function() {
+    expect(res.getResponseTime()).to.be.lessThan(1000);
+  });
+  
+  test("Should match requested ID", function() {
+    expect(res.getUrl()).to.contain(bru.getVar('treeId'));
+  });
 }

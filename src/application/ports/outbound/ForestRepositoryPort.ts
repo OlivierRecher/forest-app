@@ -4,4 +4,6 @@ export interface ForestRepositoryPort {
     findAll(): Forest[];
 
     insert(forest: Forest): Forest;
+
+    delete(uuid: string): boolean;
 }

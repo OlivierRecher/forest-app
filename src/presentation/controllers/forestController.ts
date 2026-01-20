@@ -9,6 +9,17 @@ export class ForestController {
         app.get('/forest', this.listAllForests.bind(this));
         app.get('/forest/:uuid', this.getForestById.bind(this));
         app.post('/forest', this.createForest.bind(this));
+        app.delete('/forest/:uuid', this.deleteForest.bind(this));
+    }
+
+    deleteForest(req: Request, res: Response) {
+        const uuid: string = req.params.uuid;
+        const deleted = this.forestService.delete(uuid);
+        if (deleted) {
+            res.status(204).send();
+        } else {
+            res.status(404).send({ message: "Forest not found" });
+        }
     }
 
     listAllForests(req: Request, res: Response) {

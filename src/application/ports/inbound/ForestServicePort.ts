@@ -6,4 +6,6 @@ export interface ForestServicePort {
     list(): Forest[];
 
     save(forest: Forest): Forest;
+
+    delete(uuid: string): boolean;
 }

@@ -19,4 +19,10 @@ export class ForestRepositoryAdapter implements ForestRepositoryPort {
         this.forests.push(persistedForest);
         return persistedForest;
     }
+
+    delete(uuid: string): boolean {
+        const initialLength = this.forests.length;
+        this.forests = this.forests.filter(f => f.id !== uuid);
+        return this.forests.length < initialLength;
+    }
 }
