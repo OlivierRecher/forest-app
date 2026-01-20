@@ -1,8 +1,8 @@
 export enum Species {
-  OAK,
-  EVERGREEN_OAK,
-  FIR,
-  ASH,
-  BEECH
+  OAK = "OAK",
+  EVERGREEN_OAK = "EVERGREEN_OAK",
+  FIR = "FIR",
+  ASH = "ASH",
+  BEECH = "BEECH"
 
 }

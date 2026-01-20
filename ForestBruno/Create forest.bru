@@ -1,0 +1,18 @@
+meta {
+  name: Create forest
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/forest
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "type": "TEMPERATE",
+    "surface": 1000
+  }
+}

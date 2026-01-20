@@ -1,0 +1,24 @@
+meta {
+  name: Update tree
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:3000/tree/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 123e4567-e89b-12d3-a456-426614174000
+}
+
+body:json {
+  {
+    "birth": "2023-01-01",
+    "species": "OAK",
+    "exposure": "SHADOW",
+    "carbonStorageCapacity": 25
+  }
+}

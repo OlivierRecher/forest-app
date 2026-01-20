@@ -16,7 +16,7 @@ export class TreeRepositoryAdapter {
       exposure: tree.exposure,
       carbonStorageCapacity: tree.carbonStorageCapacity
     };
-    this.trees.push(tree);
-    return tree;
+    this.trees.push(persistedTree);
+    return persistedTree;
   }
 }

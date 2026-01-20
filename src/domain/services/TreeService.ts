@@ -2,9 +2,11 @@ import { TreeServicePort } from "../../application/ports/inbound/TreeServicePort
 import { Tree } from "../models/Tree";
 import { TreeRepositoryPort } from "../../application/ports/outbound/TreeRepositoryPort";
 import { NotFoundError } from "../errors/NotFoundError";
+import { Species } from "../../domain/models/Species";
+import { Exposure } from "../../domain/models/Exposure";
 
 export class TreeService implements TreeServicePort {
-  constructor(private readonly repo: TreeRepositoryPort) {}
+  constructor(private readonly repo: TreeRepositoryPort) { }
 
   get(uuid: string): Tree {
     const tree = this.repo.findAll().find((tree) => tree.id === uuid);
@@ -19,11 +21,21 @@ export class TreeService implements TreeServicePort {
   }
 
   save(tree: Tree): Tree {
-    if (tree.birth === null) {
+    if (!tree.birth) {
       throw new Error("Tree birth date cannot be null");
     }
 
-    // Some other validation rules could be defined here
+    if (!tree.carbonStorageCapacity) {
+      throw new Error("Missing carbon storage capacity");
+    }
+
+    if (!Object.values(Species).includes(tree.species)) {
+      throw new Error("Invalid species");
+    }
+
+    if (!Object.values(Exposure).includes(tree.exposure)) {
+      throw new Error("Invalid exposure");
+    }
 
     return this.repo.insert(tree);
   }

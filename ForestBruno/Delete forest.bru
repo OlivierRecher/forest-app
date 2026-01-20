@@ -1,0 +1,15 @@
+meta {
+  name: Delete forest
+  type: http
+  seq: 10
+}
+
+delete {
+  url: http://localhost:3000/forest/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 123e4567-e89b-12d3-a456-426614174000
+}

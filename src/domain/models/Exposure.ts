@@ -1,5 +1,5 @@
 export enum Exposure {
-  SUNNY,
-  MID_SHADOW,
-  SHADOW
+  SUNNY = "SUNNY",
+  MID_SHADOW = "MID_SHADOW",
+  SHADOW = "SHADOW"
 }
