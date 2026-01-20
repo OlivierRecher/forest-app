@@ -1,9 +1,13 @@
 import { ForestServicePort } from '../../application/ports/inbound/ForestServicePort';
+import { TreeServicePort } from '../../application/ports/inbound/TreeServicePort';
 import { Express, Response, Request } from 'express';
 import { ForestType } from '../../domain/models/ForestType';
 
 export class ForestController {
-  constructor(private readonly forestService: ForestServicePort) {}
+  constructor(
+    private readonly forestService: ForestServicePort,
+    private readonly treeService: TreeServicePort,
+  ) { }
 
   registerRoutes(app: Express) {
     app.get('/forest', this.listAllForests.bind(this));
@@ -11,6 +15,8 @@ export class ForestController {
     app.post('/forest', this.createForest.bind(this));
     app.put('/forest/:uuid', this.updateForest.bind(this));
     app.delete('/forest/:uuid', this.deleteForest.bind(this));
+    app.post('/forest/:uuid/tree/:treeId', this.addTreeToForest.bind(this));
+    app.get('/forest/:uuid/specie', this.getForestSpecies.bind(this));
   }
 
   listAllForests(req: Request, res: Response) {
@@ -68,6 +74,43 @@ export class ForestController {
       res.status(204).send();
     } else {
       res.status(404).send({ message: 'Forest not found' });
+    }
+  }
+
+  addTreeToForest(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+    const treeId: string = req.params.treeId;
+
+    const tree = this.treeService.get(treeId);
+    if (!tree) {
+      res.status(404).send({ message: 'Tree not found' });
+      return;
+    }
+
+    try {
+      const updatedForest = this.forestService.addTree(uuid, tree);
+      res.status(201).send(updatedForest);
+    } catch (e) {
+      if (e instanceof Error && e.message === 'Forest not found') {
+        res.status(404).send({ message: e.message });
+      } else {
+        res.status(400).send({ message: (e as Error).message });
+      }
+    }
+  }
+
+  getForestSpecies(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+
+    try {
+      const species = this.forestService.getSpecies(uuid);
+      res.status(200).send(species);
+    } catch (e) {
+      if (e instanceof Error && e.message === 'Forest not found') {
+        res.status(404).send({ message: e.message });
+      } else {
+        res.status(400).send({ message: (e as Error).message });
+      }
     }
   }
 }

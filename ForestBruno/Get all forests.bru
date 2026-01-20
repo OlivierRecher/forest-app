@@ -4,8 +4,12 @@ meta {
   seq: 7
 }
 
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
 get {
-  url: http://localhost:3000/forest
+  url: {{baseUrl}}/forest
   body: none
   auth: none
 }

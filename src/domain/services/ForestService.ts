@@ -3,9 +3,11 @@ import { Forest } from '../models/Forest';
 import { ForestRepositoryPort } from '../../application/ports/outbound/ForestRepositoryPort';
 import { ForestType } from '../models/ForestType';
 import { NotFoundError } from '../errors/NotFoundError';
+import { Tree } from '../models/Tree';
+import { Species } from '../models/Species';
 
 export class ForestService implements ForestServicePort {
-  constructor(private readonly repo: ForestRepositoryPort) {}
+  constructor(private readonly repo: ForestRepositoryPort) { }
 
   get(uuid: string): Forest {
     const forest = this.repo.findAll().find((f) => f.id === uuid);
@@ -45,5 +47,19 @@ export class ForestService implements ForestServicePort {
     }
 
     return this.repo.update(id, forest);
+  }
+
+  addTree(forestId: string, tree: Tree): Forest {
+    const forest = this.get(forestId);
+    forest.trees ??= [];
+    forest.trees.push(tree);
+    return this.repo.update(forestId, forest);
+  }
+
+  getSpecies(forestId: string): Species[] {
+    const forest = this.get(forestId);
+    forest.trees ??= [];
+    const speciesSet = new Set(forest.trees.map((tree) => tree.species));
+    return Array.from(speciesSet);
   }
 }

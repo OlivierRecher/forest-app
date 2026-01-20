@@ -4,8 +4,12 @@ meta {
   seq: 4
 }
 
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
 get {
-  url: http://localhost:3000/tree
+  url: {{baseUrl}}/tree
   body: none
   auth: none
 }

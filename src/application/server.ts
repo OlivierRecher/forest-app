@@ -26,7 +26,7 @@ treeController.registerRoutes(app);
 
 const forestRepo = new ForestRepositoryAdapter();
 const forestService = new ForestService(forestRepo);
-const forestController = new ForestController(forestService);
+const forestController = new ForestController(forestService, treeService);
 forestController.registerRoutes(app);
 
 app.use(errorHandler);

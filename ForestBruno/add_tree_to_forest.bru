@@ -1,0 +1,15 @@
+meta {
+  name: Add Tree to Forest
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/forest/{{forestId}}/tree/{{treeId}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}

@@ -1,11 +1,15 @@
 meta {
   name: Delete tree
   type: http
-  seq: 10
+  seq: 12
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
 }
 
 delete {
-  url: http://localhost:3000/tree/{{treeId}}
+  url: {{baseUrl}}/tree/{{treeId}}
   body: none
   auth: none
 }

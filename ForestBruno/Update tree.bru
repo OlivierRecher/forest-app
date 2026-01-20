@@ -4,8 +4,12 @@ meta {
   seq: 8
 }
 
+vars:pre-request {
+  baseUrl: http://localhost:3000
+}
+
 put {
-  url: http://localhost:3000/tree/{{treeId}}
+  url: {{baseUrl}}/tree/{{treeId}}
   body: json
   auth: none
 }
@@ -44,4 +48,3 @@ tests {
     expect(body.birth).to.be.a('string');
   });
 }
-

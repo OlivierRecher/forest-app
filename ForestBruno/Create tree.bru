@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/tree
+  url: {{baseUrl}}/tree
   body: json
   auth: none
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
 }
 
 body:json {

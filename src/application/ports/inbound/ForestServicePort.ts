@@ -1,4 +1,6 @@
 import { Forest } from '../../../domain/models/Forest';
+import { Tree } from '../../../domain/models/Tree';
+import { Species } from '../../../domain/models/Species';
 
 export interface ForestServicePort {
   get(uuid: string): Forest | null;
@@ -10,4 +12,8 @@ export interface ForestServicePort {
   delete(uuid: string): boolean;
 
   update(id: string, forest: Forest): Forest;
+
+  addTree(forestId: string, tree: Tree): Forest;
+
+  getSpecies(forestId: string): Species[];
 }
