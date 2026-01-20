@@ -1,5 +1,5 @@
-import { ForestType } from "./ForestType";
-import { Tree } from "./Tree";
+import { ForestType } from './ForestType';
+import { Tree } from './Tree';
 
 export interface Forest {
   id?: string;

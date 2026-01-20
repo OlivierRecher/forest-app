@@ -1,10 +1,10 @@
-import { TreeServicePort } from "../../application/ports/inbound/TreeServicePort";
-import { Express, Response, Request } from "express";
-import { Species } from "../../domain/models/Species";
-import { Exposure } from "../../domain/models/Exposure";
+import { TreeServicePort } from '../../application/ports/inbound/TreeServicePort';
+import { Express, Response, Request } from 'express';
+import { Species } from '../../domain/models/Species';
+import { Exposure } from '../../domain/models/Exposure';
 
 export class TreeController {
-  constructor(private readonly treeService: TreeServicePort) { }
+  constructor(private readonly treeService: TreeServicePort) {}
 
   registerRoutes(app: Express) {
     app.get('/tree', this.listAllTrees.bind(this));
@@ -25,7 +25,7 @@ export class TreeController {
     if (tree) {
       res.status(200).send(tree);
     } else {
-      res.status(404).send({ message: "Tree not found" });
+      res.status(404).send({ message: 'Tree not found' });
     }
   }
 
@@ -37,7 +37,7 @@ export class TreeController {
         birth: new Date(birth),
         species: species as Species,
         exposure: exposure as Exposure,
-        carbonStorageCapacity
+        carbonStorageCapacity,
       });
       res.status(201).send(newTree);
     } catch (e) {
@@ -51,7 +51,7 @@ export class TreeController {
     if (deleted) {
       res.status(204).send();
     } else {
-      res.status(404).send({ message: "Tree not found" });
+      res.status(404).send({ message: 'Tree not found' });
     }
   }
 
@@ -64,7 +64,7 @@ export class TreeController {
         birth: new Date(birth),
         species: species as Species,
         exposure: exposure as Exposure,
-        carbonStorageCapacity
+        carbonStorageCapacity,
       });
       res.status(200).send(updated);
     } catch (e) {

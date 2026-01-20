@@ -1,13 +1,13 @@
-import { Forest } from "../../../domain/models/Forest";
+import { Forest } from '../../../domain/models/Forest';
 
 export interface ForestServicePort {
-    get(uuid: string): Forest | null;
+  get(uuid: string): Forest | null;
 
-    list(): Forest[];
+  list(): Forest[];
 
-    save(forest: Forest): Forest;
+  save(forest: Forest): Forest;
 
-    delete(uuid: string): boolean;
+  delete(uuid: string): boolean;
 
-    update(id: string, forest: Forest): Forest;
+  update(id: string, forest: Forest): Forest;
 }

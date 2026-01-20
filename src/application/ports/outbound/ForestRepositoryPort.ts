@@ -1,11 +1,11 @@
-import { Forest } from "../../../domain/models/Forest";
+import { Forest } from '../../../domain/models/Forest';
 
 export interface ForestRepositoryPort {
-    findAll(): Forest[];
+  findAll(): Forest[];
 
-    insert(forest: Forest): Forest;
+  insert(forest: Forest): Forest;
 
-    delete(uuid: string): boolean;
+  delete(uuid: string): boolean;
 
-    update(id: string, forest: Forest): Forest;
+  update(id: string, forest: Forest): Forest;
 }

@@ -1,4 +1,4 @@
-import Forest from "../../../domain/models/Forest";
+import { Forest } from '../../../domain/models/Forest';
 
 /**
  * TODO : You will add some methods in this interface to compute the carbon dioxide absorption.
