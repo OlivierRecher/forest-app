@@ -113,6 +113,128 @@ paths:
         '404':
           description: Forest not found
 
+  /forest/{id}/tree/{treeId}:
+    post:
+      summary: Add a tree to a forest
+      operationId: addTreeToForest
+      tags:
+        - forest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The forest id
+          schema:
+            type: string
+            format: uuid
+        - name: treeId
+          in: path
+          required: true
+          description: The tree id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '201':
+          description: Tree added to forest successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forest'
+        '404':
+          description: Forest or Tree not found
+
+  /forest/{id}/species:
+    get:
+      summary: Get species in a forest
+      operationId: getForestSpecies
+      tags:
+        - forest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The forest id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of species in the forest
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Species'
+        '404':
+          description: Forest not found
+
+  /forest/{id}/co2:
+    get:
+      summary: Get total CO2 absorption of a forest
+      operationId: getForestCO2
+      tags:
+        - forest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The forest id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Total CO2 absorption
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  co2:
+                    type: number
+                    format: double
+        '404':
+          description: Forest not found
+
+  /forest/{id}/surface-needed:
+    get:
+      summary: Calculate surface needed for target CO2
+      operationId: getSurfaceNeeded
+      tags:
+        - forest
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The forest id
+          schema:
+            type: string
+            format: uuid
+        - name: targetCO2
+          in: query
+          required: true
+          description: The target CO2 absorption
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Surface needed calculated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  surface:
+                    type: number
+                    format: double
+        '400':
+          description: Invalid parameter
+        '404':
+          description: Forest not found
+
   /tree:
     get:
       summary: List all trees
