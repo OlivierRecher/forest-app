@@ -5,11 +5,36 @@ meta {
 }
 
 get {
-  url: http://localhost:3000/forest/:id
+  url: http://localhost:3000/forest/{{forestId}}
   body: none
   auth: none
 }
 
-params:path {
-  id: 123e4567-e89b-12d3-a456-426614174000
+tests {
+  test("Should return 200 OK", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Should match content type", function() {
+    expect(res.getHeader('content-type')).to.include('application/json');
+  });
+  
+  test("Should respond within reasonable time", function() {
+    expect(res.getResponseTime()).to.be.lessThan(1000);
+  });
+  
+  test("Should have valid body structure", function () {
+    const body = res.getBody();
+  
+    expect(body).to.have.property("id");
+    expect(body.id).to.be.a('string');
+    
+    expect(body).to.have.property("type");
+    
+    expect(body).to.have.property("surface");
+  });
+  
+  test("Should match requested ID", function() {
+    expect(res.getUrl()).to.contain(bru.getVar('forestId'));
+  });
 }

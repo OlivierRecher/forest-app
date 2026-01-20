@@ -9,3 +9,30 @@ get {
   body: none
   auth: none
 }
+
+tests {
+  test("Should return 200 OK", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Should match content type", function() {
+    expect(res.getHeader('content-type')).to.include('application/json');
+  });
+  
+  test("Should respond within reasonable time", function() {
+    expect(res.getResponseTime()).to.be.lessThan(1000);
+  });
+  
+  test("Should return an array of trees", function () {
+    const body = res.getBody();
+    expect(body).to.be.an('array');
+    if (body.length > 0) {
+      const tree = body[0];
+      expect(tree).to.have.property("id");
+      expect(tree).to.have.property("birth");
+      expect(tree).to.have.property("species");
+      expect(tree).to.have.property("exposure");
+      expect(tree).to.have.property("carbonStorageCapacity");
+    }
+  });
+}
