@@ -8,4 +8,6 @@ export interface ForestServicePort {
     save(forest: Forest): Forest;
 
     delete(uuid: string): boolean;
+
+    update(id: string, forest: Forest): Forest;
 }

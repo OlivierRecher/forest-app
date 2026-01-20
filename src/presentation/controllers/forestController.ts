@@ -9,6 +9,7 @@ export class ForestController {
         app.get('/forest', this.listAllForests.bind(this));
         app.get('/forest/:uuid', this.getForestById.bind(this));
         app.post('/forest', this.createForest.bind(this));
+        app.put('/forest/:uuid', this.updateForest.bind(this));
         app.delete('/forest/:uuid', this.deleteForest.bind(this));
     }
 
@@ -38,6 +39,25 @@ export class ForestController {
             res.status(201).send(newForest);
         } catch (e) {
             res.status(400).send({ message: (e as Error).message });
+        }
+    }
+
+    updateForest(req: Request, res: Response) {
+        const uuid: string = req.params.uuid;
+        const { type, surface } = req.body;
+
+        try {
+            const updated = this.forestService.update(uuid, {
+                type: type as ForestType,
+                surface: surface
+            });
+            res.status(200).send(updated);
+        } catch (e) {
+            if (e instanceof Error && e.message === 'Forest not found') {
+                res.status(404).send({ message: e.message });
+            } else {
+                res.status(400).send({ message: (e as Error).message });
+            }
         }
     }
 

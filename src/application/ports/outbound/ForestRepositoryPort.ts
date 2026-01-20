@@ -6,4 +6,6 @@ export interface ForestRepositoryPort {
     insert(forest: Forest): Forest;
 
     delete(uuid: string): boolean;
+
+    update(id: string, forest: Forest): Forest;
 }

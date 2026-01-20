@@ -34,4 +34,16 @@ export class ForestService implements ForestServicePort {
     delete(uuid: string): boolean {
         return this.repo.delete(uuid);
     }
+
+    update(id: string, forest: Forest): Forest {
+        if (!forest.type || !Object.values(ForestType).includes(forest.type)) {
+            throw new Error("Invalid forest type");
+        }
+
+        if (!forest.surface || forest.surface <= 0) {
+            throw new Error("Invalid surface area");
+        }
+
+        return this.repo.update(id, forest);
+    }
 }
