@@ -63,12 +63,16 @@ describe('TreeService', () => {
 
     it('should validate birth date', () => {
       const tree = { ...validTree, birth: null } as any;
-      expect(() => treeService.save(tree)).toThrow('Tree birth date cannot be null');
+      expect(() => treeService.save(tree)).toThrow(
+        'Tree birth date cannot be null',
+      );
     });
 
     it('should validate carbon storage', () => {
       const tree = { ...validTree, carbonStorageCapacity: 0 };
-      expect(() => treeService.save(tree)).toThrow('Missing carbon storage capacity');
+      expect(() => treeService.save(tree)).toThrow(
+        'Missing carbon storage capacity',
+      );
     });
 
     it('should validate species', () => {
@@ -103,12 +107,16 @@ describe('TreeService', () => {
 
     it('should validate birth date on update', () => {
       const tree = { ...validTree, birth: null } as any;
-      expect(() => treeService.update('1', tree)).toThrow('Tree birth date cannot be null');
+      expect(() => treeService.update('1', tree)).toThrow(
+        'Tree birth date cannot be null',
+      );
     });
 
     it('should validate carbon storage on update', () => {
       const tree = { ...validTree, carbonStorageCapacity: 0 };
-      expect(() => treeService.update('1', tree)).toThrow('Missing carbon storage capacity');
+      expect(() => treeService.update('1', tree)).toThrow(
+        'Missing carbon storage capacity',
+      );
     });
 
     it('should validate exposure on update', () => {

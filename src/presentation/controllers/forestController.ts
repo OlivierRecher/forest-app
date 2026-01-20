@@ -9,7 +9,7 @@ export class ForestController {
     private readonly treeService: TreeServicePort,
   ) { }
 
-  registerRoutes(app: Express) {
+  registerRoutes(app: Express): void {
     app.get('/forest', this.listAllForests.bind(this));
     app.get('/forest/:uuid', this.getForestById.bind(this));
     app.post('/forest', this.createForest.bind(this));
@@ -21,12 +21,12 @@ export class ForestController {
     app.post('/forest/:uuid/surface-needed', this.getSurfaceNeeded.bind(this));
   }
 
-  listAllForests(req: Request, res: Response) {
+  listAllForests(req: Request, res: Response): void {
     const forests = this.forestService.list();
     res.status(200).send(forests);
   }
 
-  getForestById(req: Request, res: Response) {
+  getForestById(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const forest = this.forestService.get(uuid);
     if (forest) {
@@ -36,7 +36,7 @@ export class ForestController {
     }
   }
 
-  createForest(req: Request, res: Response) {
+  createForest(req: Request, res: Response): void {
     const { type, surface } = req.body;
 
     try {
@@ -50,7 +50,7 @@ export class ForestController {
     }
   }
 
-  updateForest(req: Request, res: Response) {
+  updateForest(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const { type, surface } = req.body;
 
@@ -69,7 +69,7 @@ export class ForestController {
     }
   }
 
-  deleteForest(req: Request, res: Response) {
+  deleteForest(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const deleted = this.forestService.delete(uuid);
     if (deleted) {
@@ -79,7 +79,7 @@ export class ForestController {
     }
   }
 
-  addTreeToForest(req: Request, res: Response) {
+  addTreeToForest(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const treeId: string = req.params.treeId;
 
@@ -101,7 +101,7 @@ export class ForestController {
     }
   }
 
-  getForestSpecies(req: Request, res: Response) {
+  getForestSpecies(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
 
     try {
@@ -116,7 +116,7 @@ export class ForestController {
     }
   }
 
-  getForestCO2(req: Request, res: Response) {
+  getForestCO2(req: Request, res: Response): void {
     const { forestId } = req.body;
 
     if (!forestId) {
@@ -136,9 +136,13 @@ export class ForestController {
     }
   }
 
-  getSurfaceNeeded(req: Request, res: Response) {
+  getSurfaceNeeded(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const { targetCO2 } = req.body;
+
+    if (!uuid) {
+      // Should not happen if route is /forest/:uuid/...
+    }
 
     if (Number.isNaN(targetCO2) || targetCO2 <= 0) {
       res.status(400).send({ message: 'Invalid targetCO2 parameter' });
@@ -146,7 +150,10 @@ export class ForestController {
     }
 
     try {
-      const surface = this.forestService.calculateSurfaceNeeded(uuid, targetCO2);
+      const surface = this.forestService.calculateSurfaceNeeded(
+        uuid,
+        targetCO2,
+      );
       res.status(200).send({ surface });
     } catch (e) {
       if (e instanceof Error && e.message === 'Forest not found') {

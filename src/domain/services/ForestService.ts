@@ -11,8 +11,8 @@ import { CO2AbsorptionServicePort } from '../../application/ports/inbound/CO2Abs
 export class ForestService implements ForestServicePort {
   constructor(
     private readonly repo: ForestRepositoryPort,
-    private readonly co2Service: CO2AbsorptionServicePort
-  ) { }
+    private readonly co2Service: CO2AbsorptionServicePort,
+  ) {}
 
   get(uuid: string): Forest {
     const forest = this.repo.findAll().find((f) => f.id === uuid);
@@ -78,7 +78,9 @@ export class ForestService implements ForestServicePort {
     const currentAbsorption = this.co2Service.getAbsorption(forest);
 
     if (currentAbsorption === 0) {
-      throw new Error('This forest has no CO2 absorption capacity, cannot calculate needed surface.');
+      throw new Error(
+        'This forest has no CO2 absorption capacity, cannot calculate needed surface.',
+      );
     }
 
     const absorptionPerUnitSurface = currentAbsorption / forest.surface;

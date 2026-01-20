@@ -122,5 +122,22 @@ module.exports = {
                 ],
             },
         ],
+        // Architecture Boundaries
+        // Rules configuration
     },
+    overrides: [
+        {
+            files: ['src/application/server.ts'],
+            rules: {
+                'boundaries/element-types': 'off',
+            },
+        },
+        {
+            files: ['**/*.spec.ts'],
+            rules: {
+                'max-lines-per-function': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
+            },
+        },
+    ],
 };

@@ -7,8 +7,12 @@ export class CO2AbsorptionService implements CO2AbsorptionServicePort {
       return 0;
     }
 
-    const totalCarbon = forest.trees.reduce((sum, tree) => sum + tree.carbonStorageCapacity, 0);
-    const uniqueSpecies = new Set(forest.trees.map((tree) => tree.species)).size;
+    const totalCarbon = forest.trees.reduce(
+      (sum, tree) => sum + tree.carbonStorageCapacity,
+      0,
+    );
+    const uniqueSpecies = new Set(forest.trees.map((tree) => tree.species))
+      .size;
     const diversityRatio = 1 + uniqueSpecies / 10;
 
     return Math.round(totalCarbon * diversityRatio);

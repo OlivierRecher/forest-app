@@ -6,7 +6,7 @@ import { Exposure } from '../../domain/models/Exposure';
 export class TreeController {
   constructor(private readonly treeService: TreeServicePort) {}
 
-  registerRoutes(app: Express) {
+  registerRoutes(app: Express): void {
     app.get('/tree', this.listAllTrees.bind(this));
     app.get('/tree/:uuid', this.getTreeById.bind(this));
     app.post('/tree', this.createTree.bind(this));
@@ -14,12 +14,12 @@ export class TreeController {
     app.delete('/tree/:uuid', this.deleteTree.bind(this));
   }
 
-  listAllTrees(req: Request, res: Response) {
+  listAllTrees(req: Request, res: Response): void {
     const trees = this.treeService.list();
     res.status(200).send(trees);
   }
 
-  getTreeById(req: Request, res: Response) {
+  getTreeById(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const tree = this.treeService.get(uuid);
     if (tree) {
@@ -29,7 +29,7 @@ export class TreeController {
     }
   }
 
-  createTree(req: Request, res: Response) {
+  createTree(req: Request, res: Response): void {
     const { birth, species, exposure, carbonStorageCapacity } = req.body;
 
     try {
@@ -45,7 +45,7 @@ export class TreeController {
     }
   }
 
-  deleteTree(req: Request, res: Response) {
+  deleteTree(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const deleted = this.treeService.delete(uuid);
     if (deleted) {
@@ -55,7 +55,7 @@ export class TreeController {
     }
   }
 
-  updateTree(req: Request, res: Response) {
+  updateTree(req: Request, res: Response): void {
     const uuid: string = req.params.uuid;
     const { birth, species, exposure, carbonStorageCapacity } = req.body;
 
