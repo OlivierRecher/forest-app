@@ -8,7 +8,6 @@
     "build": "rm -rf dist/ && tsc -p tsconfig.json && mkdir dist/src/api && cp src/api/forest.yml dist/src/api/forest.yml",
     "start": "node dist/src/application/server.js",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
     "test": "jest --coverage"
   },
   "keywords": [],

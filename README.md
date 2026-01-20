@@ -46,6 +46,17 @@ Après avoir analysé le sujet et les attendus, j'ai listé l'ensemble des point
 
 Enfin, j'ai implémenté des tests unitaires pour les services et les contrôleurs, ce qui m'a permis de valider et de fiabiliser les traitements de données.
 
+## Qualité de Code
+
+Un **linter (ESLint)** a été mis en place avec des règles strictes pour garantir la qualité et la cohérence du code.
+Il assure notamment le respect des limites architecturales (ex: le Domaine ne doit pas dépendre de l'Application).
+
+Pour lancer la vérification du code :
+
+```bash
+npm run lint
+```
+
 ## Installation
 
 1.  Dézipper le fichier du projet ou cloner le dépôt.
@@ -85,5 +96,14 @@ Pour construire et lancer l'application optimisée :
 Lancer la suite de tests unitaires et vérifier la couverture de code :
 
 ```bash
-npm test
+npm run test
 ```
+
+## Utilisation de l'API via Bruno
+
+Pour tester facilement l'API sans configurer manuellement chaque requête :
+
+1.  Lancez le serveur (`npm run dev`).
+2.  Ouvrez l'application **Bruno**.
+3.  Importez la collection située dans le dossier `ForestBruno` à la racine du projet.
+4.  Vous aurez accès à toutes les routes pré-configurées pour tester les fonctionnalités et lancer les tests E2E.
