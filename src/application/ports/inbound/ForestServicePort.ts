@@ -16,4 +16,6 @@ export interface ForestServicePort {
   addTree(forestId: string, tree: Tree): Forest;
 
   getSpecies(forestId: string): Species[];
+
+  calculateCO2(forestId: string): number;
 }

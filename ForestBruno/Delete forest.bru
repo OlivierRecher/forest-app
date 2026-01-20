@@ -1,17 +1,17 @@
 meta {
   name: Delete forest
   type: http
-  seq: 13
-}
-
-vars:pre-request {
-  baseUrl: http://localhost:3000
+  seq: 14
 }
 
 delete {
   url: {{baseUrl}}/forest/{{forestId}}
   body: none
   auth: none
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000
 }
 
 tests {

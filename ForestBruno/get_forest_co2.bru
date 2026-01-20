@@ -1,11 +1,11 @@
 meta {
-  name: Get Forest Species
+  name: Get Forest CO2
   type: http
-  seq: 11
+  seq: 12
 }
 
 get {
-  url: {{baseUrl}}/forest/{{forestId}}/species
+  url: {{baseUrl}}/forest/{{forestId}}/co2
   body: none
   auth: none
 }
@@ -28,7 +28,7 @@ tests {
   });
   
   test("Should have valid body structure", function () {
-    expect(res.getBody()).to.be.an('array');
+    expect(res.getBody().co2).to.be.a('number');
   });
   
   test("Should match requested ID", function() {

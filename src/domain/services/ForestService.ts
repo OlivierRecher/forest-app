@@ -6,8 +6,13 @@ import { NotFoundError } from '../errors/NotFoundError';
 import { Tree } from '../models/Tree';
 import { Species } from '../models/Species';
 
+import { CO2AbsorptionServicePort } from '../../application/ports/inbound/CO2AbsorptionServicePort';
+
 export class ForestService implements ForestServicePort {
-  constructor(private readonly repo: ForestRepositoryPort) { }
+  constructor(
+    private readonly repo: ForestRepositoryPort,
+    private readonly co2Service: CO2AbsorptionServicePort
+  ) { }
 
   get(uuid: string): Forest {
     const forest = this.repo.findAll().find((f) => f.id === uuid);
@@ -61,5 +66,10 @@ export class ForestService implements ForestServicePort {
     forest.trees ??= [];
     const speciesSet = new Set(forest.trees.map((tree) => tree.species));
     return Array.from(speciesSet);
+  }
+
+  calculateCO2(forestId: string): number {
+    const forest = this.get(forestId);
+    return this.co2Service.getAbsorption(forest);
   }
 }

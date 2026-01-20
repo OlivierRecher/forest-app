@@ -16,7 +16,8 @@ export class ForestController {
     app.put('/forest/:uuid', this.updateForest.bind(this));
     app.delete('/forest/:uuid', this.deleteForest.bind(this));
     app.post('/forest/:uuid/tree/:treeId', this.addTreeToForest.bind(this));
-    app.get('/forest/:uuid/specie', this.getForestSpecies.bind(this));
+    app.get('/forest/:uuid/species', this.getForestSpecies.bind(this));
+    app.get('/forest/:uuid/co2', this.getForestCO2.bind(this));
   }
 
   listAllForests(req: Request, res: Response) {
@@ -105,6 +106,20 @@ export class ForestController {
     try {
       const species = this.forestService.getSpecies(uuid);
       res.status(200).send(species);
+    } catch (e) {
+      if (e instanceof Error && e.message === 'Forest not found') {
+        res.status(404).send({ message: e.message });
+      } else {
+        res.status(400).send({ message: (e as Error).message });
+      }
+    }
+  }
+
+  getForestCO2(req: Request, res: Response) {
+    const uuid: string = req.params.uuid;
+    try {
+      const co2 = this.forestService.calculateCO2(uuid);
+      res.status(200).send({ co2 });
     } catch (e) {
       if (e instanceof Error && e.message === 'Forest not found') {
         res.status(404).send({ message: e.message });

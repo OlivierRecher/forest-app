@@ -9,6 +9,7 @@ import { TreeController } from '../presentation/controllers/treeController';
 import { ForestRepositoryAdapter } from '../infrastructure/adapters/forestRepositoryAdapter';
 import { ForestService } from '../domain/services/ForestService';
 import { ForestController } from '../presentation/controllers/forestController';
+import { CO2AbsorptionService } from '../domain/services/CO2AbsobtionService';
 import { errorHandler } from './errorHandling';
 
 const app = express();
@@ -25,7 +26,8 @@ const treeController = new TreeController(treeService);
 treeController.registerRoutes(app);
 
 const forestRepo = new ForestRepositoryAdapter();
-const forestService = new ForestService(forestRepo);
+const co2Service = new CO2AbsorptionService();
+const forestService = new ForestService(forestRepo, co2Service);
 const forestController = new ForestController(forestService, treeService);
 forestController.registerRoutes(app);
 
